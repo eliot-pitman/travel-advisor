@@ -14,7 +14,6 @@ const Map = () => {
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
-        boostrapURLKEys={{ key: "AIzaSyAB6VRj7_wkWr8ExGjgH5PsCC3-rn6Ru6E" }}
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}
@@ -28,3 +27,5 @@ const Map = () => {
 };
 
 export default Map;
+
+// process.env.REACT_APP_GOOGLE_MAP_API_KEY

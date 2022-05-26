@@ -10,7 +10,7 @@ const Map = () => {
   const classes = useStyles();
   const isMobile = useMediaQuery("(min-width:600px)");
 
-  const coordinates = { lat: 0, lng: 0 };
+  const coordinates = { lat: 30, lng: -80 };
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
@@ -27,5 +27,3 @@ const Map = () => {
 };
 
 export default Map;
-
-// process.env.REACT_APP_GOOGLE_MAP_API_KEY

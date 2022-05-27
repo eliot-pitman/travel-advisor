@@ -31,6 +31,12 @@ const PlaceDetails = ({ place }) => {
           </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
+          <Rating name="read-only" value={Number(place.rating)} readOnly />
+          <Typography gutterBottom variant="subtitle1">
+            Out of {place.num_reviews} Reviews
+          </Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
           <Typography variant="subtitle1">Ranking</Typography>
           <Typography gutterBottom variant="subtitle1">
             {place.ranking}

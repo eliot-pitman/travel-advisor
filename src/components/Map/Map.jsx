@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useState, useEffect, createRef } from "react";
 import GoogleMapReact from "google-map-react";
 import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import Rating from "@material-ui/lab/Rating";
 
 import useStyles from "./styles";
-import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
-const Map = ({ setCoords, setBounds, coords, places }) => {
+const Map = ({ setCoords, setBounds, coords, places, setChildClicked }) => {
   const classes = useStyles();
-  const isMobile = useMediaQuery("(min-width:600px)");
+  const isDesktop = useMediaQuery("(min-width:600px)");
+
+  const [elRefs, setElRefs] = useState([]);
+
+  // this bit was taken straight from JavaScript Mastery
+  useEffect(() => {
+    const refs = Array(places.length)
+      .fill()
+      .map((_, i) => elRefs[i] || createRef());
+    setElRefs(refs);
+  }, [places]);
 
   return (
     <div className={classes.mapContainer}>
@@ -24,16 +33,11 @@ const Map = ({ setCoords, setBounds, coords, places }) => {
           setCoords({ lat: e.center.lat, lng: e.center.lng });
           setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
         }}
-        // onChildClick={""}
+        onChildClick={(child) => setChildClicked(child)}
       >
         {places?.map((place, i) => (
-          <div
-            className={classes.markerContainer.container}
-            lat={Number(place.latitude)}
-            lng={Number(place.longitude)}
-            key={i}
-          >
-            {isMobile ? (
+          <div className={classes.markerContainer} lat={Number(place.latitude)} lng={Number(place.longitude)} key={i}>
+            {!isDesktop ? (
               <LocationOnOutlinedIcon color="primary" fontSize="large" />
             ) : (
               <Paper elevation={3} className={classes.paper}>

@@ -14,7 +14,7 @@ const List = ({ places, childClicked, isLoading }) => {
   // this bit was taken straight from JavaScript Mastery
   useEffect(() => {
     setElRefs((refs) =>
-      Array(places.length)
+      Array(places?.length)
         .fill()
         .map((_, i) => refs[i] || createRef())
     );

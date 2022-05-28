@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
@@ -9,16 +9,6 @@ import useStyles from "./styles";
 const Map = ({ setCoords, setBounds, coords, places, setChildClicked }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery("(min-width:600px)");
-
-  const [elRefs, setElRefs] = useState([]);
-
-  // this bit was taken straight from JavaScript Mastery
-  useEffect(() => {
-    const refs = Array(places.length)
-      .fill()
-      .map((_, i) => elRefs[i] || createRef());
-    setElRefs(refs);
-  }, [places]);
 
   return (
     <div className={classes.mapContainer}>

@@ -38,7 +38,7 @@ const App = () => {
         setIsLoading(false);
         console.log(data);
         setFilteredPlaces([]);
-        setPlaces(data);
+        setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
       });
     }
   }, [type, coords, bounds]);

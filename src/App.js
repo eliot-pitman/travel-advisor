@@ -8,12 +8,17 @@ import Map from "./components/Map/Map";
 const App = () => {
   const [places, setPlaces] = useState([]);
 
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+
   const [coords, setCoords] = useState({});
   const [bounds, setBounds] = useState({});
 
   const [childClicked, setChildClicked] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [type, setType] = useState("restaurants");
+  const [rating, setRating] = useState("");
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
@@ -22,15 +27,21 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    const filteredPlaces = places.filter((place) => place.rating > rating);
+    setFilteredPlaces(filteredPlaces);
+  }, [rating]);
+
+  useEffect(() => {
     if (bounds) {
       setIsLoading(true);
-      getPlacesData(bounds.sw, bounds.ne).then((data) => {
+      getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
         setIsLoading(false);
         console.log(data);
+        setFilteredPlaces([]);
         setPlaces(data);
       });
     }
-  }, [coords, bounds]);
+  }, [type, coords, bounds]);
 
   return (
     <>
@@ -38,14 +49,22 @@ const App = () => {
       <Header />
       <Grid container spacing={3} style={{ width: "100%" }}>
         <Grid item xs={12} md={4}>
-          <List places={places} childClicked={childClicked} isLoading={isLoading} />
+          <List
+            places={filteredPlaces.length ? filteredPlaces : places}
+            childClicked={childClicked}
+            isLoading={isLoading}
+            type={type}
+            setType={setType}
+            rating={rating}
+            setRating={setRating}
+          />
         </Grid>
         <Grid item xs={12} md={8}>
           <Map
             setCoords={setCoords}
             setBounds={setBounds}
             coords={coords}
-            places={places}
+            places={filteredPlaces.length ? filteredPlaces : places}
             setChildClicked={setChildClicked}
           />
         </Grid>

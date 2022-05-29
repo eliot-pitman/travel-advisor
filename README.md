@@ -1,5 +1,9 @@
 # Getting Started with Create React App
 
+link to deployed application (the api only allows 50 requests a day)
+
+https://silly-blini-cd784f.netlify.app/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

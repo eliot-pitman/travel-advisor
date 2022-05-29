@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import GoogleMapReact from "google-map-react";
 import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
@@ -48,9 +48,10 @@ const Map = ({ setCoords, setBounds, coords, places, setChildClicked, weatherDat
             )}
           </div>
         ))}
-        {weatherData?.list?.map((data, i) => (
-          <div key={i} lat={data.coordinates.lat} lng={data.coordinates.lon}>
-            <img height={100} src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`} alt="" />
+        {weatherData?.list?.map.map((data, i) => (
+          <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
+            {console.log("LOOK", data.coordinates.lat)}
+            <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="100px" alt="" />
           </div>
         ))}
       </GoogleMapReact>

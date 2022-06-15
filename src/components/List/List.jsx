@@ -9,7 +9,6 @@ const List = ({ places, childClicked, isLoading, rating, setRating, type, setTyp
 
   const [elRefs, setElRefs] = useState([]);
 
-  // this bit was taken straight from JavaScript Mastery
   useEffect(() => {
     setElRefs((refs) =>
       Array(places?.length)
